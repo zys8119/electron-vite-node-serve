@@ -1,22 +1,19 @@
 <template>
   <div>
-    <input v-model="text" type="text" placeholder="百度搜索" @keyup.enter="search" />
-    <button @click="search">搜索</button>
-    <div v-if="info.code === 200">
-      <div v-for="(item, key) in info.data" :key="key">{{ item }}</div>
-    </div>
-    <div v-else>{{ info.data }}</div>
+    <button @click="openPage">打开页面</button>
+    <button @click="next">登录并进行搜索删除图标</button>
+    <button @click="next2">下载第一个图标</button>
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
-
-const text = ref('')
-const info = ref<any>({})
-const search = async () => {
-  info.value = await fetch(`http://localhost:80/test?search=${text.value}`).then((res) =>
-    res.json()
-  )
+const openPage = async () => {
+  window.electron.ipcRenderer.send('openPage')
+}
+const next = async () => {
+  window.electron.ipcRenderer.send('next')
+}
+const next2 = async () => {
+  window.electron.ipcRenderer.send('next2')
 }
 </script>
 <style lang="less">
