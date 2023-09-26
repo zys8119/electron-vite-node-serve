@@ -15,6 +15,9 @@ const next = async () => {
 const next2 = async () => {
   window.electron.ipcRenderer.send('next2')
 }
+window.electron.ipcRenderer.on('err', (e) => {
+  console.log(e)
+})
 </script>
 <style lang="less">
 @import './assets/css/styles.less';

@@ -3,8 +3,8 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import setupServe from './serve'
-setupServe()
-function createWindow(): void {
+
+async function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 900,
@@ -33,8 +33,12 @@ function createWindow(): void {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
+  setupServe()
 }
-
+app.commandLine.appendSwitch('remote-debugging-port', `3000`)
+// app.commandLine.appendSwitch('host-rules', 'MAP * 127.0.0.1')
+app.commandLine.appendSwitch('remote-debugging-address', '127.0.0.1')
+// app.commandLine.appendSwitch('proxy-server', 'http://127.0.0.1:7890')
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.

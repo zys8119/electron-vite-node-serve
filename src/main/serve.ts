@@ -1,23 +1,24 @@
+import { BrowserWindow } from 'electron'
+import { Browser } from 'puppeteer-core'
+import connectBrowser from './browser'
 import { ipcMain } from 'electron'
-import { launch } from 'puppeteer'
 export default async () => {
-  const browser = await launch({
-    headless: false,
-    defaultViewport: {
-      width: 1920,
-      height: 1080
-    }
-  })
-  browser.on('disconnected', () => {
-    console.log('浏览器已关闭')
-  })
+  let browser: Browser
   let page
   ipcMain.on('openPage', async () => {
-    page = await browser.newPage()
+    const win = await new BrowserWindow()
+    await win.loadURL('https://www.iconfont.cn/login')
+    await new Promise((r) => {
+      setTimeout(r, 1000)
+    })
+    browser = (await connectBrowser()) as Browser
+    page = (await browser.pages())[1]
     await page.goto('https://www.iconfont.cn/login')
   })
   ipcMain.on('next', async () => {
-    await page.tap('#login-form > div:nth-child(4) > button')
+    try {
+      await page.tap('#login-form > div:nth-child(4) > button')
+    } catch (e) {}
     await page.waitForSelector('#J_search_input_index', { visible: true })
     await page.type('#J_search_input_index', '删除')
     await page.keyboard.down('Enter')
@@ -30,6 +31,5 @@ export default async () => {
     )
     await page.waitForSelector('#body_dlg_73 > div.download-btns > span:nth-child(3)')
     await page.tap('#body_dlg_73 > div.download-btns > span:nth-child(3)')
-    await page.close()
   })
 }
