@@ -112,7 +112,7 @@ window.electron.ipcRenderer.on('syncDeleteWindow', (_, id) => {
   )
 })
 window.electron.ipcRenderer.on('icpEmitSuccess', async (_, id, channel, results) => {
-  const info = list.value.find((e) => e.id === id) || {}
+  const info = list.value.find((e) => e.id === id) as unknown as any
   await info?.success?.[channel]?.(results)
 })
 onMounted(() => {
