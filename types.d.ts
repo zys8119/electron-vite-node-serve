@@ -13,5 +13,6 @@ export type WinMapType = {
   url: string
   win: BrowserWindow | null
   page: Page | null
-  exec: string
+  exec: string | (() => void)
+  on: Record<any, string | (() => void)>
 }
