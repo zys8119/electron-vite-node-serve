@@ -9,10 +9,13 @@ declare global {
   }
 }
 export type WinMapType = {
-  id: number
+  id: string
   url: string
   win: BrowserWindow | null
   page: Page | null
-  exec: string | (() => void)
-  on: Record<any, string | (() => void)>
+  exec: string | ExecEmitFunType
+  on: Record<any, ExecEmitFunType>
+  success: Record<any, ExecEmitFunType>
 }
+
+export type ExecEmitFunType = string | ((config: WinMapType) => void)

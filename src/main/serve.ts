@@ -72,7 +72,8 @@ export default async (mainWindow: BrowserWindow) => {
       const channelFn = info?.on?.[channel]
       if (typeof channelFn === 'string' && channelFn) {
         const fn = `(${channelFn})(info, browser)`
-        eval(fn)
+        const results = await eval(fn)
+        mainWindow.webContents.send('icpEmitSuccess', item.id, channel, results)
       }
     } catch (e) {
       console.log(e)
