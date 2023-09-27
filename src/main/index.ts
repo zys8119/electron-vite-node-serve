@@ -19,6 +19,7 @@ async function createWindow() {
   })
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
+    setupServe(mainWindow)
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
@@ -33,7 +34,6 @@ async function createWindow() {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
-  setupServe()
 }
 app.commandLine.appendSwitch('remote-debugging-port', `3000`)
 // app.commandLine.appendSwitch('host-rules', 'MAP * 127.0.0.1')
