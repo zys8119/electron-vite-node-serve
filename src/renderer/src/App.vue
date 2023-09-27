@@ -37,7 +37,7 @@ const createWin = () => {
       await page.tap('#body_dlg_73 > div.download-btns > span:nth-child(3)')
     },
     on: {
-      aa: () => {
+      aa: async () => {
         console.log(555)
       }
     }
