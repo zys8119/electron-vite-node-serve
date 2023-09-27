@@ -27,18 +27,17 @@ const createWin = () => {
     id: Date.now().toString(),
     url: 'https://www.iconfont.cn/login',
     //todo 初始化执行
-    exec: async ({ page }: WinMapType) => {
-      // 登录
-      try {
-        await page.tap('#login-form > div:nth-child(4) > button')
-      } catch (e) {}
-      await page.waitForSelector('#J_search_input_index', { visible: true })
-      await page.type('#J_search_input_index', '删除')
-      await page.keyboard.down('Enter')
-    },
+    exec: async ({ page }: WinMapType) => {},
     //todo 自定义事件
     on: {
       searchAndDownload: async ({ page }: WinMapType) => {
+        // 登录
+        try {
+          await page.tap('#login-form > div:nth-child(4) > button')
+        } catch (e) {}
+        await page.waitForSelector('#J_search_input_index', { visible: true })
+        await page.type('#J_search_input_index', '删除')
+        await page.keyboard.down('Enter')
         // 搜索并下载
         await page.waitForSelector('.page-search-container  > ul > li:nth-child(1)', {
           visible: true
