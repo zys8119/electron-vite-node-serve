@@ -11,8 +11,8 @@ declare global {
 export type WinMapType = {
   id: string
   url: string
-  win: BrowserWindow | null
-  page: Page | null
+  win: BrowserWindow
+  page: Page
   exec: string | ExecEmitFunType
   on: Record<any, ExecEmitFunType>
   success: Record<any, ExecEmitFunType>

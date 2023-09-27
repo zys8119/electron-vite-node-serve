@@ -41,8 +41,8 @@ export default async (mainWindow: BrowserWindow) => {
         })
       info.win.on('close', () => {
         mainWindow.webContents.send('syncDeleteWindow', item.id)
-        info.win = null
-        info.page = null
+        info.win = null as unknown as any
+        info.page = null as unknown as any
         winMap.delete(item.id)
       })
       await info.win.loadURL(info.url)
