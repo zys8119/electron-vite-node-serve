@@ -3,7 +3,6 @@ import { electronAPI } from '@electron-toolkit/preload'
 
 // Custom APIs for renderer
 export const api = {
-  '/aaa': 111
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

@@ -3,9 +3,10 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import setupServe from './serve'
-
+//todo Chromium 连接端口，推荐设置高端口
+const port = 44044
 async function createWindow() {
-  // Create the browser window.
+  // 创建主窗口
   const mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
@@ -19,7 +20,8 @@ async function createWindow() {
   })
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
-    setupServe(mainWindow)
+    // 设置node服务
+    setupServe(mainWindow, port)
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
@@ -35,14 +37,21 @@ async function createWindow() {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
 }
-app.commandLine.appendSwitch('remote-debugging-port', `3000`)
+
+/**
+ * todo Electron 命令行开关
+ * 参考文档： https://www.electronjs.org/docs/latest/api/command-line-switches
+ */
+app.commandLine.appendSwitch('remote-debugging-port', String(port))
 // app.commandLine.appendSwitch('host-rules', 'MAP * 127.0.0.1')
 app.commandLine.appendSwitch('remote-debugging-address', '127.0.0.1')
-app.commandLine.appendSwitch('inspect-brk')
-app.commandLine.appendSwitch('inspect-brk-node')
-app.commandLine.appendSwitch('disable-renderer-backgrounding')
-app.commandLine.appendSwitch('enable-logging','/Users/zhangyunshan/work/electron-vite-node-serve/src/main/log.log')
+// app.commandLine.appendSwitch('inspect-brk')
+// app.commandLine.appendSwitch('inspect-brk-node')
+// app.commandLine.appendSwitch('disable-renderer-backgrounding')
+// app.commandLine.appendSwitch('enable-logging','log.log')
 // app.commandLine.appendSwitch('proxy-server', 'http://127.0.0.1:7890')
+
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.

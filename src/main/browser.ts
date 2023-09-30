@@ -1,6 +1,6 @@
 import { connect } from 'puppeteer-core'
 import { request } from 'http'
-const readJson = async (port: string): Promise<any> =>
+const readJson = async (port: number): Promise<any> =>
   new Promise((resolve, reject) => {
     let json = ''
     const req = request(
@@ -20,9 +20,9 @@ const readJson = async (port: string): Promise<any> =>
     req.on('error', reject)
     req.end()
   })
-export const browser = async function (): Promise<any> {
+export const browser = async function (port:number): Promise<any> {
   try {
-    const json = await readJson('3000')
+    const json = await readJson(port)
     return await connect({
       browserWSEndpoint: json.webSocketDebuggerUrl,
       defaultViewport: null
