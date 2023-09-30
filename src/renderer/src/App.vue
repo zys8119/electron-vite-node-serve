@@ -27,7 +27,7 @@ const createWin = () => {
     id: Date.now().toString(),
     url: 'https://www.iconfont.cn/login',
     //todo 初始化执行
-    exec: async ({ page }: WinMapType) => {},
+    // exec: async ({ page }: WinMapType) => {},
     //todo 自定义事件
     on: {
       searchAndDownload: async ({ page }: WinMapType) => {

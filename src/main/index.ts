@@ -38,6 +38,10 @@ async function createWindow() {
 app.commandLine.appendSwitch('remote-debugging-port', `3000`)
 // app.commandLine.appendSwitch('host-rules', 'MAP * 127.0.0.1')
 app.commandLine.appendSwitch('remote-debugging-address', '127.0.0.1')
+app.commandLine.appendSwitch('inspect-brk')
+app.commandLine.appendSwitch('inspect-brk-node')
+app.commandLine.appendSwitch('disable-renderer-backgrounding')
+app.commandLine.appendSwitch('enable-logging','/Users/zhangyunshan/work/electron-vite-node-serve/src/main/log.log')
 // app.commandLine.appendSwitch('proxy-server', 'http://127.0.0.1:7890')
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
